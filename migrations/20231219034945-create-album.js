@@ -2,18 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Albums', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
-        type: Sequelize.STRING
+      user_id: {
+        type: Sequelize.INTEGER
       },
-      password: {
-        type: Sequelize.STRING
+      title: {
+        type: Sequelize.TEXT
       },
       created_at: {
         allowNull: false,
@@ -26,17 +26,17 @@ module.exports = {
     })
   },
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users')
+    await queryInterface.dropTable('Albums')
   }
 }
 
 /*
 建立 table 的 SQL
 
-CREATE TABLE Users (
+CREATE TABLE Albums (
   id SERIAL PRIMARY KEY,
-  email VARCHAR(255),
-  password VARCHAR(255),
+  user_id INTEGER,
+  title TEXT,
   created_at timestamptz NOT NULL,
   updated_at timestamptz NOT NULL
   )
