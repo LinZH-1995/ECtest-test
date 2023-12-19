@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local')
 
 const { User } = require('../models') // import models from model folder
 
+// LocalStrategy
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, cb) => { // cb = callback
   try {
     // 檢查user是否存在，撈資料時不撈'createdAt', 'updatedAt'兩個欄位
@@ -17,6 +18,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
   }
 }))
 
+// Session
 passport.serializeUser((user, cb) => {
   return cb(null, user.id)
 })
