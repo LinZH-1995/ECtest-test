@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 
 const userController = require('../controllers/user-controller.js') // import userController from controllers folder
-const passport = require('../config/passport.js') // import passport from config folder
+const { localStrategyAuth } = require('../middleware/auth.js') // import auth middleware from middleware folder
 
 router.post('/signup', userController.signUp)
 
-router.post('/signin', passport.authenticate('local'), userController.signIn)
+router.post('/signin', localStrategyAuth, userController.signIn)
 
 module.exports = router
