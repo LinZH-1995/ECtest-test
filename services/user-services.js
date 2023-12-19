@@ -19,6 +19,14 @@ const userServices = {
     } catch (error) {
       return callback(error, null)
     }
+  },
+
+  signIn: async (user, callback) => {
+    try {
+      return callback(null, { user })
+    } catch (error) {
+      return callback(error, null)
+    }
   }
 }
 

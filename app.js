@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const routes = require('./routes') // import routes from routes folder
+const passport = require('./config/passport.js') // import passport from config folder
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -20,6 +21,8 @@ app.use(expSession({
   resave: true,
   cookie: { maxAge: 1200000 }
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/api', routes)
 
