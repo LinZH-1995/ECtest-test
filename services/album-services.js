@@ -3,7 +3,7 @@ const { Album, User } = require('../models')
 const albumServices = {
   postAlbum: async (req, callback) => {
     try {
-      const userId = 5
+      const userId = req.user.id
       const title = req.body.title.trim()
       if (!title) throw new Error('標題為必填!')
       const user = await User.findByPk(userId, { attributes: ['id'] }) // 檢查使用者是否存在
@@ -18,7 +18,7 @@ const albumServices = {
   // 取得使用者所有Albums
   getAlbums: async (req, callback) => {
     try {
-      const userId = 5
+      const userId = req.user.id
       const albums = await Album.findAndCountAll({ // 找出全部並計算數量
         raw: true,
         nest: true,
@@ -34,7 +34,7 @@ const albumServices = {
   // 取得使用者的某個Album
   getAlbum: async (req, callback) => {
     try {
-      const userId = 5
+      const userId = req.user.id
       const albumId = req.params.id
       const album = await Album.findOne({
         nest: true,
@@ -49,7 +49,7 @@ const albumServices = {
   // 修改使用者的某個Album
   putAlbum: async (req, callback) => {
     try {
-      const userId = 5
+      const userId = req.user.id
       const albumId = req.params.id
       const title = req.body.title.trim()
       if (!title) throw new Error('標題為必填!')
@@ -63,7 +63,7 @@ const albumServices = {
   // 刪除使用者的某個Album
   deleteAlbum: async (req, callback) => {
     try {
-      const userId = 5
+      const userId = req.user.id
       const albumId = req.params.id
       const deleteAlbumCount = await Album.destroy({ where: { id: albumId, userId } }) // 滿足條件才刪除，回傳值為刪除的數量
       return callback(null, { deleteAlbumCount })
