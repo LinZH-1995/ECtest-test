@@ -7,6 +7,10 @@ const albumController = {
 
   getAlbums: (req, res, next) => {
     albumServices.getAlbums(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
+  },
+
+  getAlbum: (req, res, next) => {
+    albumServices.getAlbum(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
   }
 }
 

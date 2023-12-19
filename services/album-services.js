@@ -29,6 +29,20 @@ const albumServices = {
     } catch (error) {
       return callback(error, null)
     }
+  },
+
+  getAlbum: async (req, callback) => {
+    try {
+      const userId = 5
+      const albumId = req.params.id
+      const album = await Album.findOne({
+        nest: true,
+        where: { id: albumId, userId } // WHERE id = ?albumId AND userId = ?userId
+      })
+      return callback(null, { album })
+    } catch (error) {
+      return callback(error, null)
+    }
   }
 }
 
