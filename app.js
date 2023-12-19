@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+const routes = require('./routes') // import routes from routes folder
+
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -18,5 +20,7 @@ app.use(expSession({
   resave: true,
   cookie: { maxAge: 1200000 }
 }))
+
+app.use('/api', routes)
 
 app.listen(port, () => console.log(`Server is listening on port:${port}`))
