@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const { User } = require('../models') // import models from model folder
 
@@ -24,7 +25,8 @@ const userServices = {
   signIn: async (req, callback) => {
     try {
       const user = req.user
-      return callback(null, { user })
+      const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1d' })
+      return callback(null, { user, token })
     } catch (error) {
       return callback(error, null)
     }

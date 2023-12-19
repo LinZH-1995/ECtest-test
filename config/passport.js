@@ -1,8 +1,27 @@
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
+
+// set JWT option
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+}
 
 const { User } = require('../models') // import models from model folder
+
+// JWTStrategy
+passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, cb) => {
+  try {
+    const user = await User.findByPk(jwtPayload.id, { attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } })
+    if (!user) return cb(null, false, { message: 'JWT驗證失敗!' })
+    return cb(null, user.toJSON())
+  } catch (error) {
+    return cb(error, false)
+  }
+}))
 
 // LocalStrategy
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, cb) => { // cb = callback
