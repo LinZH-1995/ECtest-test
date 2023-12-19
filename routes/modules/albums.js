@@ -5,6 +5,10 @@ const albumController = require('../../controllers/album-controller.js') // impo
 
 router.get('/:id', albumController.getAlbum)
 
+router.put('/:id', albumController.putAlbum)
+
+router.delete('/:id', albumController.deleteAlbum)
+
 router.post('/', albumController.postAlbum)
 
 router.get('/', albumController.getAlbums)

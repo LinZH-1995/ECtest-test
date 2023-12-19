@@ -11,6 +11,14 @@ const albumController = {
 
   getAlbum: (req, res, next) => {
     albumServices.getAlbum(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
+  },
+
+  putAlbum: (req, res, next) => {
+    albumServices.putAlbum(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
+  },
+
+  deleteAlbum: (req, res, next) => {
+    albumServices.deleteAlbum(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
   }
 }
 

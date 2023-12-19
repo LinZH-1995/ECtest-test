@@ -31,6 +31,7 @@ const albumServices = {
     }
   },
 
+  // 取得使用者的某個Album
   getAlbum: async (req, callback) => {
     try {
       const userId = 5
@@ -40,6 +41,32 @@ const albumServices = {
         where: { id: albumId, userId } // WHERE id = ?albumId AND userId = ?userId
       })
       return callback(null, { album })
+    } catch (error) {
+      return callback(error, null)
+    }
+  },
+
+  // 修改使用者的某個Album
+  putAlbum: async (req, callback) => {
+    try {
+      const userId = 5
+      const albumId = req.params.id
+      const title = req.body.title.trim()
+      if (!title) throw new Error('標題為必填!')
+      const editAlbumCount = await Album.update({ title }, { where: { id: albumId, userId } }) // 滿足條件才修改，回傳值為修改的數量
+      return callback(null, { editAlbumCount })
+    } catch (error) {
+      return callback(error, null)
+    }
+  },
+
+  // 刪除使用者的某個Album
+  deleteAlbum: async (req, callback) => {
+    try {
+      const userId = 5
+      const albumId = req.params.id
+      const deleteAlbumCount = await Album.destroy({ where: { id: albumId, userId } }) // 滿足條件才刪除，回傳值為刪除的數量
+      return callback(null, { deleteAlbumCount })
     } catch (error) {
       return callback(error, null)
     }
