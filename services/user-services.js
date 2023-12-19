@@ -3,12 +3,12 @@ const bcrypt = require('bcryptjs')
 const { User } = require('../models') // import models from model folder
 
 const userServices = {
-  signUp: async (reqBody, callback) => {
+  signUp: async (req, callback) => {
     try {
-      if (reqBody.password !== reqBody.checkPassword) throw new Error('密碼與確認密碼不同!')
+      if (req.body.password !== req.body.checkPassword) throw new Error('密碼與確認密碼不同!')
       const data = {
-        email: reqBody.email?.trim(), // trim()防止全部都是空格
-        password: reqBody.password?.trim()
+        email: req.body.email?.trim(), // trim()防止全部都是空格
+        password: req.body.password?.trim()
       }
       if (!data.email || !data.password) throw new Error('所有欄位皆為必填!')
       const user = await User.findOne({ where: { email: data.email } }) // 查詢email是否註冊過
@@ -21,8 +21,9 @@ const userServices = {
     }
   },
 
-  signIn: async (user, callback) => {
+  signIn: async (req, callback) => {
     try {
+      const user = req.user
       return callback(null, { user })
     } catch (error) {
       return callback(error, null)
