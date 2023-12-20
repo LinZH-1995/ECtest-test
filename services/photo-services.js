@@ -1,3 +1,5 @@
+const path = require('path')
+
 const { Photo, Album } = require('../models')
 
 const { localFileHandler } = require('../middleware/multer.js')
@@ -96,6 +98,30 @@ const photoServices = {
         { where: { id, albumId }, returning: true } // option
       )
       return callback(null, { editCount, editPhoto })
+    } catch (error) {
+      return callback(error, null)
+    }
+  },
+
+  downloadPhoto: async (req, callback) => {
+    try {
+      const id = req.params.id
+      const userId = req.user.id
+      const albumId = req.query.albumId
+
+      // 檢查是否是使用者相簿
+      const album = await Album.findOne({
+        where: { id: albumId, userId },
+        attributes: ['id', 'userId']
+      })
+      if (!album) throw new Error('無法下載他人相簿!')
+
+      // 檢查相片是否存在，並只取相片檔案位置資料
+      const photo = await Photo.findByPk(id, { attributes: ['image'] })
+      if (!photo) throw new Error('相片不存在!')
+
+      const imagePath = path.join(__dirname, `..${photo.image}`) // C:\Users\User\project folder\uploads\1111.jpg
+      return callback(null, { photo: imagePath })
     } catch (error) {
       return callback(error, null)
     }

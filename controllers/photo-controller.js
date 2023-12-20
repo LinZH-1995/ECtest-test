@@ -15,6 +15,10 @@ const photoController = {
 
   putPhoto: (req, res, next) => {
     photoServices.putPhoto(req, (err, data) => err ? next(err) : res.json({ status: 'Success', data }))
+  },
+
+  downloadPhoto: (req, res, next) => {
+    photoServices.downloadPhoto(req, (err, data) => err ? next(err) : res.download(data.photo))
   }
 }
 

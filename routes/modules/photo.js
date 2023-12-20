@@ -5,6 +5,8 @@ const photoController = require('../../controllers/photo-controller.js') // impo
 
 const { upload } = require('../../middleware/multer.js') // import multer middleware
 
+router.get('/:id/download', photoController.downloadPhoto)
+
 router.get('/:id', photoController.getPhoto)
 
 router.put('/:id', upload.single('image'), photoController.putPhoto)
