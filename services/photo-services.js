@@ -129,6 +129,7 @@ const photoServices = {
     }
   },
 
+  // 刪除相片
   deletePhoto: async (req, callback) => {
     try {
       const id = req.params.id
