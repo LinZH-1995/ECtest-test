@@ -5,6 +5,10 @@ const photoController = require('../../controllers/photo-controller.js') // impo
 
 const { upload } = require('../../middleware/multer.js') // import multer middleware
 
+router.get('/:id', photoController.getPhoto)
+
 router.post('/', upload.single('image'), photoController.postPhoto) // single只能上傳單一檔案，約定req.body傳回名稱為image
+
+router.get('/', photoController.getPhotos)
 
 module.exports = router
