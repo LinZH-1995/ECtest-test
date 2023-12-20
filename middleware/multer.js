@@ -21,6 +21,7 @@ const localFileHandler = (file) => {
       const fileName = `uploads/${file.originalname}`
       const data = fs.readFileSync(file.path)
       fs.writeFileSync(fileName, data)
+      fs.rmSync(file.path) // 上傳完成後刪除temp資料夾臨時檔案
       return resolve(`/${fileName}`)
     } catch (error) {
       return reject(error)
