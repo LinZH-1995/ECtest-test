@@ -23,6 +23,7 @@ app.use(expSession({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use('/uploads', express.static('./uploads')) // 網頁顯示圖片用 <img src="/uploads/xxx.jpg">
 
 app.use('/api', routes)
 
