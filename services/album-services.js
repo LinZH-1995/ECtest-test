@@ -53,8 +53,8 @@ const albumServices = {
       const albumId = req.params.id
       const title = req.body.title.trim()
       if (!title) throw new Error('標題為必填!')
-      const editAlbumCount = await Album.update({ title }, { where: { id: albumId, userId } }) // 滿足條件才修改，回傳值為修改的數量
-      return callback(null, { editAlbumCount })
+      const [editCount, editAlbum] = await Album.update({ title }, { where: { id: albumId, userId }, returning: true }) // 滿足條件才修改，回傳值為修改的數量與修改的相簿
+      return callback(null, { editCount, editAlbum })
     } catch (error) {
       return callback(error, null)
     }

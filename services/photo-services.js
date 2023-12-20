@@ -74,6 +74,7 @@ const photoServices = {
     }
   },
 
+  // 修改某相片
   putPhoto: async (req, callback) => {
     try {
       // 約定新增/修改時，albumId放入body
@@ -103,6 +104,7 @@ const photoServices = {
     }
   },
 
+  // 下載某相片
   downloadPhoto: async (req, callback) => {
     try {
       const id = req.params.id
