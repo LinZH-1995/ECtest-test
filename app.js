@@ -13,6 +13,10 @@ const passport = require('./config/passport.js') // import passport from config 
 const app = express()
 const port = process.env.PORT || 3000
 
+// swagger
+const initSwagger = require('./swagger.js')
+initSwagger(app)
+
 app.use(helmet()) // helmet套件防止網路攻擊，見 https://expressjs.com/zh-tw/advanced/best-practice-security.html
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -30,3 +34,5 @@ app.use('/uploads', express.static('./uploads')) // 網頁顯示圖片用 <img s
 app.use('/api', routes)
 
 app.listen(port, () => console.log(`Server is listening on port:${port}`))
+
+module.exports = app
