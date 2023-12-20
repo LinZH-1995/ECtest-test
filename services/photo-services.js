@@ -82,17 +82,17 @@ const photoServices = {
       const userId = req.user.id
       const { albumId, description } = req.body
 
+      // 上傳檔案
+      const { file } = req
+      const filePath = await localFileHandler(file)
+      if (!filePath) throw new Error('檔案上傳失敗!')
+
       // 檢查是否是使用者相簿
       const album = await Album.findOne({
         where: { id: albumId, userId },
         attributes: ['id', 'userId']
       })
       if (!album) throw new Error('無法修改他人相簿!')
-
-      // 上傳檔案
-      const { file } = req
-      const filePath = await localFileHandler(file)
-      if (!filePath) throw new Error('檔案上傳失敗!')
 
       const [editCount, editPhoto] = await Photo.update(
         { description, image: filePath }, // 要修改的資料

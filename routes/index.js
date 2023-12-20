@@ -1,3 +1,4 @@
+const { check } = require('express-validator')
 const express = require('express')
 const router = express.Router()
 
@@ -11,7 +12,7 @@ router.use('/albums', jwtStrategyAuth, albums)
 
 router.use('/photos', jwtStrategyAuth, photos)
 
-router.post('/signup', userController.signUp)
+router.post('/signup', check('email').isEmail(), userController.signUp) // express-validator套件檢查email格式
 
 router.post('/signin', localStrategyAuth, userController.signIn)
 

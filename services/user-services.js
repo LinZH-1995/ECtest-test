@@ -1,11 +1,16 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator')
 
 const { User } = require('../models') // import models from model folder
 
 const userServices = {
   signUp: async (req, callback) => {
     try {
+      // 驗證email格式
+      const validResult = validationResult(req)
+      if (!validResult.isEmpty()) throw new Error('輸入資料格式錯誤!')
+
       if (req.body.password !== req.body.checkPassword) throw new Error('密碼與確認密碼不同!')
       const data = {
         email: req.body.email?.trim(), // trim()防止全部都是空格
