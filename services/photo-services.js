@@ -127,6 +127,28 @@ const photoServices = {
     } catch (error) {
       return callback(error, null)
     }
+  },
+
+  deletePhoto: async (req, callback) => {
+    try {
+      const id = req.params.id
+      const userId = req.user.id
+      const albumId = req.query.albumId
+
+      // 檢查是否是使用者相簿
+      const album = await Album.findOne({
+        where: { id: albumId, userId },
+        attributes: ['id', 'userId']
+      })
+      if (!album) throw new Error('無法刪除他人相簿!')
+
+      // 刪除相片
+      const deletePhotoCount = await Photo.destroy({ where: { id, albumId } })
+
+      return callback(null, { deletePhotoCount })
+    } catch (error) {
+      return callback(error, null)
+    }
   }
 }
 

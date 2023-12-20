@@ -7,6 +7,8 @@ const { upload } = require('../../middleware/multer.js') // import multer middle
 
 router.get('/:id/download', photoController.downloadPhoto)
 
+router.delete('/:id', photoController.deletePhoto)
+
 router.get('/:id', photoController.getPhoto)
 
 router.put('/:id', upload.single('image'), photoController.putPhoto)
