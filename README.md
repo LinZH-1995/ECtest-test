@@ -19,15 +19,22 @@ docker-compose build --no-cache
 ```
 docker-compose up -d
 ```
-#### 5. Create Table for Database
+#### 6. Exec Container
+```
+docker container ls (list container)
+```
+```
+docker exec -it (CONTAINER ID) /bin/sh (exec container)
+```
+#### 7. Create Table for Database
 ```
 npx sequelize db:migrate
 ```
-#### 5. Create Test Data (need to upload photo before test photo download)
+#### 8. Create Test Data (need to upload photo before test photo download)
 ```
 npx sequelize db:seed:all
 ```
-#### 6. Connect - [swagger](http://localhost:3000/swagger)、[swagger.json](http://localhost:3000/swagger/json)
+#### 9. Connect - [swagger](http://localhost:3000/swagger)、[swagger.json](http://localhost:3000/swagger/json)
 ```
 http://localhost:3000/swagger (test API)
 ```
