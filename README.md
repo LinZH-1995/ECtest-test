@@ -34,10 +34,10 @@ npx sequelize db:migrate
 ```
 npx sequelize db:seed:all
 ```
-#### 9. Connect - [swagger](http://localhost:3000/swagger)、[swagger.json](http://localhost:3000/swagger/json)
+#### 9. Connect - [swagger](http://localhost:443/swagger)、[swagger.json](http://localhost:443/swagger/json)
 ```
-http://localhost:3000/swagger (test API)
+http://localhost:443/swagger (test API)
 ```
 ```
-http://localhost:3000/swagger/json
+http://localhost:443/swagger/json
 ```
