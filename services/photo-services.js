@@ -119,7 +119,7 @@ const photoServices = {
       if (!album) throw new Error('無法下載他人相簿!')
 
       // 檢查相片是否存在，並只取相片檔案位置資料
-      const photo = await Photo.findByPk(id, { attributes: ['image'] })
+      const photo = await Photo.findOne({ where: { id, albumId }, attributes: ['image'] })
       if (!photo) throw new Error('相片不存在!')
 
       const imagePath = path.join(__dirname, `..${photo.image}`) // C:\Users\User\project folder\uploads\1111.jpg
