@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgresdb:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=testdb
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgres/data
+  app:
+    depends_on:
+      - postgresdb
+    build: ./
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - 443:3000
+
+volumes: 
+  db:
