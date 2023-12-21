@@ -17,12 +17,7 @@ const albumController = require('../../controllers/album-controller.js') // impo
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/albumId_path'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'
@@ -45,12 +40,7 @@ router.get('/:id', albumController.getAlbum)
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/albumId_path'
  *     requestBody:
  *      $ref: '#/components/requestBodies/putAlbum'
  *     responses:
@@ -75,12 +65,7 @@ router.put('/:id', albumController.putAlbum)
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/albumId_path'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'

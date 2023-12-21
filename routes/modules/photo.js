@@ -20,18 +20,8 @@ const { upload } = require('../../middleware/multer.js') // import multer middle
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相片的 ID'
- *         schema:
- *           type: integer
- *       - in: query
- *         name: albumId
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/photoId_path'
+ *       - $ref: '#/components/parameters/albumId_query'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'
@@ -54,18 +44,8 @@ router.get('/:id/download', check('albumId').escape(), photoController.downloadP
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相片的 ID'
- *         schema:
- *           type: integer
- *       - in: query
- *         name: albumId
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/photoId_path'
+ *       - $ref: '#/components/parameters/albumId_query'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'
@@ -88,18 +68,8 @@ router.delete('/:id', check('albumId').escape(), photoController.deletePhoto) //
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相片的 ID'
- *         schema:
- *           type: integer
- *       - in: query
- *         name: albumId
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/photoId_path'
+ *       - $ref: '#/components/parameters/albumId_query'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'
@@ -122,12 +92,7 @@ router.get('/:id', check('albumId').escape(), photoController.getPhoto) // expre
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: '相片的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/photoId_path'
  *     requestBody:
  *       $ref: '#/components/requestBodies/putPhoto'
  *     responses:
@@ -163,7 +128,7 @@ router.post('/', upload.single('image'), photoController.postPhoto) // single只
 
 /**
  * @swagger
- * /api/photos{?albumId}:
+ * /api/photos:
  *   get:
  *     tags: [Photos]
  *     summary: '取得某相簿所有相片'
@@ -175,12 +140,7 @@ router.post('/', upload.single('image'), photoController.postPhoto) // single只
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
- *         name: albumId
- *         required: true
- *         description: '相簿的 ID'
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/albumId_query'
  *     responses:
  *       200:
  *         $ref: '#/components/responses/200/GeneralRes'

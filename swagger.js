@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express') // 將json檔轉成UI介面
 const schemas = require('./helpers/swagger-schemas-helper.js')
 const responses = require('./helpers/swagger-responses-helper.js')
 const requestBodies = require('./helpers/swagger-requestBodies-helper.js')
+const parameters = require('./helpers/swagger-parameters-helper.js')
 
 const initSwagger = function (app) {
   // swagger-jsdoc設定
@@ -25,6 +26,7 @@ const initSwagger = function (app) {
           }
         },
         schemas,
+        parameters,
         responses,
         requestBodies
       }
