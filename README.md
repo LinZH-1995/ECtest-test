@@ -1,7 +1,7 @@
 ## Getting Started
 #### 1. Install Docker
 ```
-https://www.docker.com/  // Docker version 24.0.5
+https://www.docker.com/   ---> Docker version 24.0.5
 ```
 #### 2. Copy project
 ```
@@ -21,10 +21,10 @@ docker-compose up -d
 ```
 #### 6. Exec Container
 ```
-docker container ls (list container)
+docker container ls   ---> list container
 ```
 ```
-docker exec -it (CONTAINER ID) /bin/sh (exec container)
+docker exec -it (CONTAINER ID) /bin/sh   ---> exec container
 ```
 #### 7. Create Table for Database
 ```
@@ -33,6 +33,12 @@ npx sequelize db:migrate
 #### 8. Create Test Data (need to upload photo before test photo download)
 ```
 npx sequelize db:seed:all
+```
+```
+two test users
+
+account: user1@example.com / password: 12345678
+account: user2@example.com / password: 12345678
 ```
 #### 9. Connect - [swagger](http://localhost:443/swagger)、[swagger.json](http://localhost:443/swagger/json)
 ```
