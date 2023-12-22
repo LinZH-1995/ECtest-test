@@ -11,11 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      Photo.belongsTo(models.Album, { foreignKey: 'albumId' })
+      Photo.belongsTo(models.Album, { foreignKey: 'albumId', onDelete: 'CASCADE' })
     }
   }
   Photo.init({
-    albumId: DataTypes.INTEGER,
+    albumId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'Albums', key: 'id' },
+      onDelete: 'CASCADE'
+    },
     description: DataTypes.STRING,
     image: DataTypes.STRING
   }, {
