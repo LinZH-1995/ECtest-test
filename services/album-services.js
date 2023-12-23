@@ -54,7 +54,8 @@ const albumServices = {
       const title = req.body.title.trim()
       if (!title) throw new Error('標題為必填!')
       const [editCount, editAlbum] = await Album.update({ title }, { where: { id: albumId, userId }, returning: true }) // 滿足條件才修改，回傳值為修改的數量與修改的相簿
-      return callback(null, { editCount, editAlbum })
+      if (!editCount) throw new Error('相簿不存在!')
+      return callback(null, { editCount, editAlbum: editAlbum[0] })
     } catch (error) {
       return callback(error, null)
     }
@@ -66,6 +67,7 @@ const albumServices = {
       const userId = req.user.id
       const albumId = req.params.id
       const deleteAlbumCount = await Album.destroy({ where: { id: albumId, userId } }) // 滿足條件才刪除，回傳值為刪除的數量
+      if (!deleteAlbumCount) throw new Error('相簿不存在!')
       return callback(null, { deleteAlbumCount })
     } catch (error) {
       return callback(error, null)

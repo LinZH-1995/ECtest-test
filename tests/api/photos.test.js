@@ -11,7 +11,9 @@ describe('測試 Photos API', () => {
   // 測試開始前註冊測試user並登入取得JWT token與新增測試album
   let albumId
   let token
+  const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ1c2VyMkBleGFtcGxlLmNvbSIsImlhdCI6MTcwMzMxOTI0NSwiZXhwIjoxNzAzNDA1NjQ1fQ.xamr7h8TyTqPJDepmCChytSX7pscCOLkhnU-uah0Afw'
   let photoId
+
   before(async () => {
     // 創建新user
     const password = await bcrypt.hash('123456', 10)
@@ -31,6 +33,19 @@ describe('測試 Photos API', () => {
 
   // 開始測試
   describe('=== 測試 /api/photos --> postPhoto ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).post('/api/photos')
+        .set('Content-Type', 'multipart/form-data')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+        .field({ albumId, description: '123456' })
+        .attach('image', path.join(__dirname, '/../../cat.png'))
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--無上傳相片--', async () => {
       const response = await request(app).post('/api/photos')
         .set('Content-Type', 'multipart/form-data')
@@ -83,6 +98,17 @@ describe('測試 Photos API', () => {
   })
 
   describe('=== 測試 /api/photos --> getPhotos ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).get(`/api/photos?albumId=${albumId}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--試圖讀取他人相簿--', async () => {
       const response = await request(app).get('/api/photos?albumId=999')
         .set('Content-Type', 'application/json')
@@ -113,6 +139,17 @@ describe('測試 Photos API', () => {
   })
 
   describe('=== 測試 /api/photos/:id --> getPhoto ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).get(`/api/photos/${photoId}?albumId=${albumId}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--試圖讀取他人相簿--', async () => {
       const response = await request(app).get(`/api/photos/${photoId}?albumId=999`)
         .set('Content-Type', 'application/json')
@@ -125,7 +162,6 @@ describe('測試 Photos API', () => {
     })
 
     it('--取得某相簿某張相片--', async () => {
-      console.log(photoId)
       const response = await request(app).get(`/api/photos/${photoId}?albumId=${albumId}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
@@ -139,6 +175,19 @@ describe('測試 Photos API', () => {
   })
 
   describe('=== 測試 /api/photos/:id --> putPhoto ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).put(`/api/photos/${photoId}`)
+        .set('Content-Type', 'multipart/form-data')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+        .field({ albumId, description: 'test edit photo description and image' })
+        .attach('image', path.join(__dirname, '/../../cat.png'))
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--意圖修改他人相簿的相片--', async () => {
       const response = await request(app).put(`/api/photos/${photoId}`)
         .set('Content-Type', 'multipart/form-data')
@@ -205,6 +254,16 @@ describe('測試 Photos API', () => {
   })
 
   describe('=== 測試 /api/photos/:id/download --> downloadPhoto ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).get(`/api/photos/${photoId}/download?albumId=${albumId}`)
+        .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--意圖下載他人相簿的相片--', async () => {
       const response = await request(app).get('/api/photos/999/download?albumId=999')
         .set('Content-Type', 'application/json')
@@ -239,6 +298,17 @@ describe('測試 Photos API', () => {
   })
 
   describe('=== 測試 /api/photos/:id --> deletePhoto ===', () => {
+    it('--JWT驗證失敗--', async () => {
+      const response = await request(app).delete(`/api/photos/${photoId}?albumId=${albumId}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${fakeToken}`)
+
+      expect(response.type).equal('application/json')
+      expect(response.status).equal(401)
+      expect(response.body).have.property('message', 'JWT驗證失敗!')
+    })
+
     it('--意圖刪除他人相簿的相片--', async () => {
       const response = await request(app).delete('/api/photos/999?albumId=999')
         .set('Content-Type', 'application/json')
