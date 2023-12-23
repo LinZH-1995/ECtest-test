@@ -4,6 +4,7 @@ const router = express.Router()
 
 const userController = require('../controllers/user-controller.js') // import userController from controllers folder
 const { localStrategyAuth, jwtStrategyAuth } = require('../middleware/auth.js') // import auth middleware from middleware folder
+const { errorHandler } = require('../middleware/error-handler.js')
 
 const albums = require('./modules/albums.js') // import albums route
 const photos = require('./modules/photo.js') // import photos route
@@ -75,5 +76,7 @@ router.post('/signup', check('email').isEmail(), userController.signUp) // expre
   *        $ref: '#/components/responses/400'
  */
 router.post('/signin', localStrategyAuth, userController.signIn)
+
+router.use(errorHandler) // 所有api最後都會跑errorHandler
 
 module.exports = router
