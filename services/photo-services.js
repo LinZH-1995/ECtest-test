@@ -85,7 +85,6 @@ const photoServices = {
       // 上傳檔案
       const { file } = req
       const filePath = await localFileHandler(file)
-      if (!filePath) throw new Error('檔案上傳失敗!')
 
       // 檢查是否是使用者相簿
       const album = await Album.findOne({
@@ -94,11 +93,15 @@ const photoServices = {
       })
       if (!album) throw new Error('無法修改他人相簿!')
 
+      // 確保要修改的相片存在
+      const photo = await Photo.findOne({ where: { id, albumId }, attributes: ['image'] })
+      if (!photo) throw new Error('欲修改的相片不存在!')
+
       const [editCount, editPhoto] = await Photo.update(
-        { description, image: filePath }, // 要修改的資料
+        { description, image: filePath || photo.image }, // 要修改的資料
         { where: { id, albumId }, returning: true } // option
       )
-      return callback(null, { editCount, editPhoto })
+      return callback(null, { editCount, editPhoto: editPhoto[0] })
     } catch (error) {
       return callback(error, null)
     }
@@ -145,7 +148,7 @@ const photoServices = {
 
       // 刪除相片
       const deletePhotoCount = await Photo.destroy({ where: { id, albumId } })
-
+      if (!deletePhotoCount) throw new Error('相片不存在!')
       return callback(null, { deletePhotoCount })
     } catch (error) {
       return callback(error, null)

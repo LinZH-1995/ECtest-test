@@ -47,3 +47,23 @@ http://localhost:443/swagger (test API)
 ```
 http://localhost:443/swagger/json
 ```
+
+## Unit Test
+#### 1. Follow Getting Started Step 2 ~ 3
+```
+git clone https://github.com/LinZH-1995/ECtest-test.git
+
+cd ECtest-test
+```
+#### 2. Create A Test Database (make sure PostgreSQL already install)
+```
+npx sequelize db:create --env test
+```
+#### 3. Create Tables
+```
+npx sequelize db:migrate --env test
+```
+#### 4. Start Testing
+```
+npm run test
+```
