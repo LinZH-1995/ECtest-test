@@ -67,3 +67,10 @@ npx sequelize db:migrate --env test
 ```
 npm run test
 ```
+#### 5. Delete Tables / Delete Database 
+```
+Delete Tables: npx sequelize db:migrate:undo:all --env test
+```
+```
+Delete Database: npx sequelize db:drop --env test
+```
