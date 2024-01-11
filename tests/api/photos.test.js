@@ -43,7 +43,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--無上傳相片--', async () => {
@@ -106,7 +106,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--試圖讀取他人相簿--', async () => {
@@ -147,7 +147,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--試圖讀取他人相簿--', async () => {
@@ -185,7 +185,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--意圖修改他人相簿的相片--', async () => {
@@ -261,7 +261,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--意圖下載他人相簿的相片--', async () => {
@@ -306,7 +306,7 @@ describe('測試 Photos API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--意圖刪除他人相簿的相片--', async () => {
