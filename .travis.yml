@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "18"
+  - "17"
+  - "16"
 services:
   - postgresql
 env:
@@ -9,7 +11,6 @@ install:
   - npm install
 before_script:
   - psql -c 'create database unit_test_db;' -U postgres
-  - npx sequelize db:create --env test
   - npx sequelize db:migrate --env test
 deploy:
   provider: heroku
