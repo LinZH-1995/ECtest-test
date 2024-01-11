@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-  - "18"
   - "17"
   - "16"
 services:
@@ -12,6 +11,8 @@ install:
 before_script:
   - psql -c 'create database unit_test_db;' -U postgres
   - npx sequelize db:migrate --env test
+before_deploy:
+  - gem install faraday-net_http -v 3.0.2
 deploy:
   provider: heroku
   api_key:
