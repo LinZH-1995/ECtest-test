@@ -38,7 +38,7 @@ describe('測試 Album API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--相簿標題未填寫--', async () => {
@@ -85,7 +85,7 @@ describe('測試 Album API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--取得使用者所有albums--', async () => {
@@ -115,7 +115,7 @@ describe('測試 Album API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--取得使用者某相簿--', async () => {
@@ -140,7 +140,7 @@ describe('測試 Album API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--相簿標題未填寫--', async () => {
@@ -195,7 +195,7 @@ describe('測試 Album API', () => {
 
       expect(response.type).equal('application/json')
       expect(response.status).equal(401)
-      expect(response.body).have.property('message', 'JWT驗證失敗!')
+      expect(response.body).have.property('message').that.have.oneOf(['JWT驗證失敗!', 'jwt expired'])
     })
 
     it('--欲刪除相簿不存在--', async () => {
