@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "18"
+services:
+  - postgresql
+env:
+  - NODE_ENV=test
+install:
+  - npm install
+before_script:
+  - psql -c 'create database unit_test_db;' -U postgres
+  - npx sequelize db:create --env test
+  - npx sequelize db:migrate --env test
+deploy:
+  provider: heroku
+  api_key:
+    secure: EovU9QBKlmjahSvEhNEgGUiXhEOeitNiJjx9qoDhBgQRi1nzHhpu4Rm2ndZC9BWvYaCayz88DQTKwVkY13QTCA98jdUwQGlx/HPWrRorf2SKYKPMxfS/xOUx2REJbxmSzC6UZgsUNuPL+P9IRBN6wA8mks1uQlrF3KjXg9WgVGZ3LTfnrDT1JS0N+kXfs4FEaMLZostaCKIYlP+/1N682ihT9cb1YppvSW7Mdh+tAYVLRkUbh1xyYTVQVxMqr6GXxroJZ90jHrINhtliMNANwkGeSS4NVMiDtgwmA17fjkY4VE3cDAo9VLn7UF4c0O8flXRRTZH4K9oLwGpuB+ln9/FoKa8J1zmpJstmSL5NtBSk62ix1PYlF3AiB51Sqq8L1xEjmOjR0dWs/jRklbxCKlr1BjEQ6xkJd87xaABEC3YyTcrT+XPeleKTHhLQudPDfyFoFFd9mNxqD3P0vGvfzq1mEnjoiYWs/eZmaxQTjG9r2Bvh0LxD3bqTo5V1d7shKcUDdkBgmV4pb8kmzlegY0f9pYvRBp8V+TMnzBGC1wNP9X95TQ4Lx/hJRrxmEHrDVi3xNBtmpErQt9aQi+/06SGG6Pl0E/Ti6NaC7Sp6Yf1sB7qkpBlhkbP046xaZcJkPGo35tQgGLoCkPLWSnFadNru8gtDiLlVj93skWUfy6A=
+  app: lit-scrubland-41591
+  on:
+    repo: LinZH-1995/ECtest-test
+    branch: main
+  skip_cleanup: true
