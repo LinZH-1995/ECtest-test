@@ -55,19 +55,23 @@ git clone https://github.com/LinZH-1995/ECtest-test.git
 
 cd ECtest-test
 ```
-#### 2. Create A Test Database (make sure PostgreSQL already install)
+#### 2. Install package
+```
+npm install
+```
+#### 3. Create A Test Database (make sure PostgreSQL already install)
 ```
 npx sequelize db:create --env test
 ```
-#### 3. Create Tables
+#### 4. Create Tables
 ```
 npx sequelize db:migrate --env test
 ```
-#### 4. Start Testing
+#### 5. Start Testing
 ```
 npm run test
 ```
-#### 5. Delete Tables / Delete Database 
+#### 6. Delete Tables / Delete Database 
 ```
 Delete Tables: npx sequelize db:migrate:undo:all --env test
 ```
