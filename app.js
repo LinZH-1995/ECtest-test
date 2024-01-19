@@ -14,7 +14,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 // swagger
-const initSwagger = require('./swagger.js')
+const initSwagger = require('./swagger/swagger.js')
 initSwagger(app)
 
 app.use(helmet()) // helmet套件防止網路攻擊，見 https://expressjs.com/zh-tw/advanced/best-practice-security.html

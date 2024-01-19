@@ -2,10 +2,10 @@ const swaggerJsdoc = require('swagger-jsdoc') // 產生swagger json檔
 const swaggerUi = require('swagger-ui-express') // 將json檔轉成UI介面
 
 //  載入components
-const schemas = require('./helpers/swagger-schemas-helper.js')
-const responses = require('./helpers/swagger-responses-helper.js')
-const requestBodies = require('./helpers/swagger-requestBodies-helper.js')
-const parameters = require('./helpers/swagger-parameters-helper.js')
+const schemas = require('./components/swagger-schemas.js')
+const responses = require('./components/swagger-responses.js')
+const requestBodies = require('./components/swagger-requestBodies.js')
+const parameters = require('./components/swagger-parameters.js')
 
 const initSwagger = function (app) {
   // swagger-jsdoc設定
