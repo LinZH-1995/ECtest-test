@@ -2,6 +2,7 @@ const express = require('express')
 const expSession = require('express-session')
 const methodOverride = require('method-override')
 const helmet = require('helmet')
+const compression = require('compression')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -18,6 +19,7 @@ const initSwagger = require('./swagger/swagger.js')
 initSwagger(app)
 
 app.use(helmet()) // helmet套件防止網路攻擊，見 https://expressjs.com/zh-tw/advanced/best-practice-security.html
+app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
