@@ -40,12 +40,9 @@ two test users
 account: user1@example.com / password: 12345678
 account: user2@example.com / password: 12345678
 ```
-#### 9. Connect - [swagger](http://localhost:443/swagger)、[swagger.json](http://localhost:443/swagger/json)
+#### 9. Connect - [swagger](http://localhost:443/swagger)
 ```
 http://localhost:443/swagger (test API)
-```
-```
-http://localhost:443/swagger/json
 ```
 
 ## Unit Test
