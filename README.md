@@ -77,4 +77,6 @@ Delete Database: npx sequelize db:drop --env test
 ```
 
 ## Preview Images
-![]()
+![API document](https://github.com/LinZH-1995/ECtest-test/blob/main/images/ECtest.png)
+
+![API document](https://github.com/LinZH-1995/ECtest-test/blob/main/images/ECtest2.png)
